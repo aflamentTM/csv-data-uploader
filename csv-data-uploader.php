@@ -23,3 +23,36 @@ define("CDU_PLUGIN_DIR_PATH", plugin_dir_path(__FILE__));
 
     return $template;
  }
+//  DB Table on Plugin Activation
+register_activation_hook(__FILE__,"cdu_create_table");
+function cdu_create_table() 
+{
+    global $wpdb;
+    $table_prefix = $wpdb->prefix;
+    $table_name = $table_prefix."students_data";
+
+    $table_collate = $wpdb->get_charset_collate();
+
+    $sql_command ="
+        CREATE TABLE `".$table_name."` (
+        `id` int(11) NOT NULL AUTO_INCREMENT,
+        `name` varchar(50) DEFAULT NULL,
+        `email` varchar(50) DEFAULT NULL,
+        `age` int(5) DEFAULT NULL,
+        `phone` varchar(30) DEFAULT NULL,
+        `photo` varchar(120) DEFAULT NULL,
+        PRIMARY KEY (`id`)
+        ) ".$table_collate."
+    ";
+    require_once(ABSPATH."/wp-admin/includes/upgrade.php");
+    dbDelta($sql_command);
+}
+
+// To add Script file
+add_action("wp_enqueue_scripts", "cdu_add_scripts_file");
+function cdu_add_scripts_file() {
+    wp_enqueue_script("cdu-script-js", plugin_dir_url(__FILE__)."assets/script.js", array( "jquery"));
+    wp_localize_script("cdu-script-js", "cdu_object", array( 
+        "ajax_url" => admin_url("admin-ajax.php")
+    ));
+}
