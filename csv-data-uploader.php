@@ -56,3 +56,14 @@ function cdu_add_scripts_file() {
         "ajax_url" => admin_url("admin-ajax.php")
     ));
 }
+
+// Capture ajax request 
+add_action("wp_ajax_cdu_submit_form_data", "cdu_ajax_handler");
+add_action("wp_ajax_nopriv_cdu_submit_form_data", "cdu_ajax_handler");
+
+function cdu_ajax_handler() {
+    echo json_encode(array( 
+        "status" => 1,
+        "message" => "Hello From csv Data uploader"
+    ));
+}

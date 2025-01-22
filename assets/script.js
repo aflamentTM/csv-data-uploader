@@ -1,5 +1,5 @@
 jQuery(document).ready(function(){
-    jquery("#frm-csv-upload").on("submit", function(event){
+    jQuery("#frm-csv-upload").on("submit", function(event){
         event.preventDefault();
         var formData = new FormData(this);
         jQuery.ajax({
