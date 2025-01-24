@@ -1,8 +1,8 @@
 <h3>
     Form Data
 </h3>
-
-<form action="javascript:void(0)" id="frm-csv-upload">
+<p id="show_upload_message"></p>
+<form action="javascript:void(0)" id="frm-csv-upload" enctype="multipart/form-data">
     <p>
         <label for="csv_data_file">Upload CSV File</label>
         <input type="file" name="csv_data_file" id="csv_data_file">

@@ -10,7 +10,9 @@ jQuery(document).ready(function(){
             processData: false,
             contentType: false,
             success: function(response) {
-                console.log(response);
+                if(response.status) {
+                    jQuery("#show_upload_message").text(response.message).css({"color": "green"});
+                }
             }
         })
     })
